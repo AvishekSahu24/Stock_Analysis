@@ -12,11 +12,7 @@ def movingavg(values, window):
 
 
 data2 = pd.read_excel("data15.xlsx")
-# data2 = pd.read_csv("sakuma.csv",usecols =["Date"],squeeze = True)
-# print(data)
-# top = data2.head(1)
-# bottom = data2.tail(1)
-# print(top)
+
 
 CCI = []
 SI = []
@@ -100,59 +96,44 @@ for s1, e1 in zip(range(0, ((len(data2) - 20) + 1)), range(20, (len(data2) + 1))
 
     CCI.append(round(cc, 2))
 
-# print(CCI)
-
-# df1 = pd.DataFrame(CCI)
-# writer = pd.ExcelWriter('simple.xlsx', engine='xlsxwriter')
-# df1.to_excel(writer, sheet_name='Sheet1')
-# writer.save()
 
 
 
 for s2, e2 in zip(range(0, ((len(data2) - 14) + 1)), range(14, (len(data2) + 1))):
     data3 = data2[s2:e2]
     period3 = len(data3)
-    # print("start from " + str(s2) + "end till " + str(e2))
+    
 
     pc1 = data3.iloc[:, 5]
     lc1 = data3.iloc[:, 4]
     hp1 = data3.iloc[:, 3]
 
-    # print(pc1[e2-1])
-    # print(min(lc1))
-    # print(max(hp1))
+  
     k = ((pc1[e2 - 1] - min(lc1)) / (max(hp1) - min(lc1))) * 100
     SI.append(round(k, 2))
 
-# print(len(SI))
+
 
 for d1, d2 in zip(range(0, ((len(SI) - 3) + 1)), range(3, (len(SI) + 1))):
-    # print("start from " + str(d1) + "end till " + str(d2))
     data4 = SI[d1:d2]
     DSI.append(round((sum(data4) / 3), 2))
 
-# print(DSI)
+
 
 for p1, p2 in zip(range(0, ((len(data2) - 1) + 1)), range(2, (len(data2) + 1))):
 
-    # print("start from " + str(p1) + "end till " + str(p2))
-    # data4 = SI[p1:p2]
-    # DSI.append(sum(data4)/3)
+   
     data5 = data2[p1:p2]
     pc2 = data5.iloc[:, 5]
     lc2 = data5.iloc[:, 4]
     hp2 = data5.iloc[:, 3]
-    # print(pc2)
-
-    # print("start from " + str(data5[0]) + "end till " + str(data5[1]))
+  
 
 
     pc3 = data5.iloc[0:2, 5]
     lc3 = data5.iloc[0:2, 4]
     hp3 = data5.iloc[0:2, 3]
 
-    # print(pc3[p1])
-    # print(pc3[p1+1])
 
 
 
@@ -163,7 +144,7 @@ for p1, p2 in zip(range(0, ((len(data2) - 1) + 1)), range(2, (len(data2) + 1))):
     else:
         datatrue.append(" ")
 
-# print(datatrue)
+
 
 pc4 = data2.iloc[:, 5]
 lc4 = data2.iloc[:, 4]
@@ -237,7 +218,6 @@ for g4 in range(0, 1):
 
 newdatatrue = dumbdatatrue + datatrue
 
-# calculate maxa nad mina form today high/low and RA/Sa
 
 x11 = 0
 while x11 < len(data2):
@@ -312,10 +292,9 @@ ind = []
 ran = []
 
 for rtt in range(1, len(maxaTwo)):
-    # print(maxaTwo[rtt])
+    
     frac, whole = math.modf(maxaTwo[rtt])
-    # print("this is frac: "+str(frac))
-    # print("this is whole: "+str(whole))
+
     if frac < min2:
         newMaxaThree2.append(int(whole +1+ addCellValue))
 
@@ -332,10 +311,8 @@ for a in range(0, 1):
 allMaxaThree = dumMaxaThree + newMaxaThree2
 
 for rff in range(1, len(minaTwo)):
-    # print(minaTwo[rff])
     frac, whole = math.modf(minaTwo[rff])
-    # print("this is frac: "+str(frac))
-    # print("this is whole: "+str(whole))
+  
 
     if frac < min2:
         newminaThree2.append(int(whole - 1 - addCellValue))
@@ -346,9 +323,7 @@ for rff in range(1, len(minaTwo)):
 
     else:
         newminaThree2.append(int(whole - addCellValue))
-        # print(minaThree)
 
-# print(minaThree)
 
 
 
@@ -368,7 +343,7 @@ for p101, p201 in zip(range(0, ((len(CCI) - 1) + 1)), range(1, (len(CCI) + 1))):
             if SI[CCI.index(CCI[p201]) + 6] < DSI[CCI.index(CCI[p201]) + 4]:
                 try:
                     run37 = 1
-                    # print(newCCIGraph[CCI.index(CCI[p20]) + 18 + run35])
+                    
                     while run37 != 0:
                         if newCCIGraph[CCI.index(CCI[p201]) + 19 + run37] != "         B":
                             minValue = changeMinMax[CCI.index(CCI[p201]) + 18 + run37]
@@ -413,59 +388,6 @@ for p101, p201 in zip(range(0, ((len(CCI) - 1) + 1)), range(1, (len(CCI) + 1))):
                                             changeMinMax[CCI.index(CCI[p201]) + 19 + run37] = allminaThree[
                                                 CCI.index(CCI[p201]) + 19 + run37]
                                     run37 += 1
-
-
-
-
-
-                    # minValue = minaTwo[CCI.index(CCI[p201]) + 19]
-                    # if minValue > lc5[CCI.index(CCI[p201]) + 20]:
-                    #     dumbDataPattern[CCI.index(CCI[p201]) + 20] = "AB-"
-                    #
-                    # else:
-                    #     dumbDataPattern[CCI.index(CCI[p201]) + 20] = dumbDataPattern[CCI.index(CCI[p201]) + 19]
-
-                        # run=1
-                        # while run!=0:
-                        #     if (   100> CCI[p201 + run]>0):
-                        #         if SI[CCI.index(CCI[p201]) + 6+run] < DSI[CCI.index(CCI[p201]) + 4+run]:
-                        #             if minaTwo[CCI.index(CCI[p201])+19+run] <minValue:
-                        #                 minValue=minaTwo[CCI.index(CCI[p201])+19+run]
-
-                        #         if minValue>lc5[CCI.index(CCI[p201])+20+run]:
-                        #             dumbDataPattern[CCI.index(CCI[p201])+20+run]="AB-"
-
-                        #         run +=1
-                        #     else:
-                        #         run==0
-                        #         break
-
-                        # run2 = 1
-                        # while run2 != 0:
-                        #     if (100> CCI[p201 +run2]>0 and CCI[p201 +run2+1]>100):
-                        #         if SI[CCI.index(CCI[p201]) + 6 + run2] > DSI[CCI.index(CCI[p201]) + 4 + run2]:
-                        #             minValueNew = minaTwo[CCI.index(CCI[p201]) + 19 + run2]
-
-                        #             run3 = 1
-                        #             while run3 != 0:
-                        #                 if (CCI[p201+run3]>100 and 100> CCI[p201+run3+1]>0):
-                        #                     minaValueNew = minaTwo[CCI.index(CCI[p201]) + 19 + run3]
-
-                        #                 if minValue > minaValueNew:
-                        #                     minValue = minaValueNew
-                        #                     run3 == 0
-
-                        #                 else:
-                        #                     run3 += 1
-
-                        #         if minValue > lc5[CCI.index(CCI[p201]) + 20 + run2]:
-                        #             dumbDataPattern[CCI.index(CCI[p201]) + 20 + run2] = "AB-"
-
-                        #         run2 == 0
-                        #         break
-                        #     else:
-                        #         run2 += 1
-                        # maxminPattern[CCI.index(CCI[p201])+20+run]=minValue
 
                 except:
                     print("leave")
@@ -533,58 +455,6 @@ for p102, p202 in zip(range(0, ((len(CCI) - 1) + 1)), range(1, (len(CCI) + 1))):
                                     run38 += 1
 
 
-
-
-
-
-                    # minValue = minaTwo[CCI.index(CCI[p202]) + 19]
-                    # if minValue > lc5[CCI.index(CCI[p202]) + 20]:
-                    #     dumbDataPattern[CCI.index(CCI[p202]) + 20] = "AC-"
-                    # else:
-                    #     dumbDataPattern[CCI.index(CCI[p202]) + 20] = dumbDataPattern[CCI.index(CCI[p202]) + 19]
-                    #
-                    # run = 1
-                    # while run != 0:
-                    #     if (0 > CCI[p202 + run] > -100):
-                    #         if SI[CCI.index(CCI[p202]) + 6 + run] < DSI[CCI.index(CCI[p202]) + 4 + run]:
-                    #             if minaTwo[CCI.index(CCI[p202]) + 19 + run] < minValue:
-                    #                 minValue = minaTwo[CCI.index(CCI[p202]) + 19 + run]
-                    #
-                    #         if minValue > lc5[CCI.index(CCI[p202]) + 20 + run]:
-                    #             dumbDataPattern[CCI.index(CCI[p202]) + 20 + run] = "AC-"
-                    #
-                    #         run += 1
-                    #     else:
-                    #         run == 0
-                    #         break
-
-                            # run2 = 1
-                            # while run2 != 0:
-                            #     if (0>CCI[p202 + run2]> -100 and CCI[p202 + run2+1]>100):
-                            #         if SI[CCI.index(CCI[p202]) + 6 + run2] > DSI[CCI.index(CCI[p202]) + 4 + run2]:
-                            #             minValueNew = minaTwo[CCI.index(CCI[p202]) + 19 + run2]
-
-                            #             run3 = 1
-                            #             while run3 != 0:
-                            #                 if (CCI[p202 +run3]>100 and 0>CCI[p202 + run3+1]> -100):
-                            #                     minaValueNew = minaTwo[CCI.index(CCI[p202]) + 19 + run3]
-
-                            #                 if minValue > minaValueNew:
-                            #                     minValue = minaValueNew
-                            #                     run3 == 0
-
-                            #                 else:
-                            #                     run3 += 1
-
-                            #         if minValue > lc5[CCI.index(CCI[p202]) + 20 + run2]:
-                            #             dumbDataPattern[CCI.index(CCI[p202]) + 20 + run2] = "AC-"
-
-                            #         run2 == 0
-                            #         break
-                            #     else:
-                            #         run2 += 1
-                            # maxminPattern[CCI.index(CCI[p202]) + 20 + run]=minValue
-
                 except:
                     print("leave")
     except:
@@ -651,55 +521,6 @@ for p103, p203 in zip(range(0, ((len(CCI) - 1) + 1)), range(1, (len(CCI) + 1))):
                                     run39 += 1
 
 
-
-                    # minValue = minaTwo[CCI.index(CCI[p203]) + 19]
-                    # if minValue > lc5[CCI.index(CCI[p203]) + 20]:
-                    #     dumbDataPattern[CCI.index(CCI[p203]) + 20] = "AD-"
-                    # else:
-                    #     dumbDataPattern[CCI.index(CCI[p203]) + 20] = dumbDataPattern[CCI.index(CCI[p203]) + 19]
-                    #
-                    # run = 1
-                    # while run != 0:
-                    #     if (CCI[p203 + run] < -100):
-                    #         if SI[CCI.index(CCI[p203]) + 6 + run] < DSI[CCI.index(CCI[p203]) + 4 + run]:
-                    #             if minaTwo[CCI.index(CCI[p203]) + 19 + run] < minValue:
-                    #                 minValue = minaTwo[CCI.index(CCI[p203]) + 19 + run]
-                    #
-                    #         if minValue > lc5[CCI.index(CCI[p203]) + 20 + run]:
-                    #             dumbDataPattern[CCI.index(CCI[p203]) + 20 + run] = "AD-"
-                    #
-                    #         run += 1
-                    #     else:
-                    #         run == 0
-                    #         break
-
-                            # run2 = 1
-                            # while run2 != 0:
-                            #     if (CCI[p203 +run2] < -100 and CCI[p203+run2+1]>100):
-                            #         if SI[CCI.index(CCI[p203]) + 6 + run2] > DSI[CCI.index(CCI[p203]) + 4 + run2]:
-                            #             minValueNew = minaTwo[CCI.index(CCI[p203]) + 19 + run2]
-
-                            #             run3 = 1
-                            #             while run3 != 0:
-                            #                 if (CCI[p203 +run3]>100 and CCI[p203 +run3+1] < -100):
-                            #                     minaValueNew = minaTwo[CCI.index(CCI[p203]) + 19 + run3]
-
-                            #                 if minValue > minaValueNew:
-                            #                     minValue = minaValueNew
-                            #                     run3 == 0
-
-                            #                 else:
-                            #                     run3 += 1
-
-                            #         if minValue > lc5[CCI.index(CCI[p203]) + 20 + run2]:
-                            #             dumbDataPattern[CCI.index(CCI[p203]) + 20 + run2] = "AD-"
-
-                            #         run2 == 0
-                            #         break
-                            #     else:
-                            #         run2 += 1
-                            # maxminPattern[CCI.index(CCI[p203]) + 20 + run] = minValue
-
                 except:
                     print("leave")
     except:
@@ -760,67 +581,6 @@ for p10, p20 in zip(range(0, ((len(CCI) - 1) + 1)), range(1, (len(CCI) + 1))):
 
 
 
-
-
-
-
-                                # run=1
-                                # while run!=0:
-                                #     if ( 0>CCI[p20 + run]> -100):
-                                #         if SI[CCI.index(CCI[p20]) + 6+run] < DSI[CCI.index(CCI[p20]) + 4+run]:
-                                #             if minaTwo[CCI.index(CCI[p20])+19+run] <minValue:
-                                #                 minValue=minaTwo[CCI.index(CCI[p20])+19+run]
-
-                                #         if minValue>lc5[CCI.index(CCI[p20])+20+run]:
-                                #             dumbDataPattern[CCI.index(CCI[p20])+20+run]="BC-"
-
-                                #         run +=1
-                                #     else:
-                                #         run==0
-                                #         break
-
-
-                                # run4=1
-                                # while run4!=0:
-                                #     if(0>CCI[p20 + run4]> -100):
-                                #         if dumbDataPattern[CCI.index(CCI[p20])+ 18 +run4]==dumbDataPattern[CCI.index(CCI[p20])+ 20 + run4]:
-                                #             changeSlot[CCI.index(CCI[p20])+ 19+run4] = changeSlot[CCI.index(CCI[p20])+ 18+run4]
-                                #             changeMinMax[CCI.index(CCI[p20])+ 19+run4] = minaTwo[CCI.index(CCI[p20])+ 19]
-                                #         run4+=1
-
-                                #     else:
-                                #         run4==0
-                                #         break
-
-
-
-                                # run2 = 1
-                                # while run2 != 0:
-                                #     if (0>CCI[p20 + run2]> -100 and 100> CCI[p20 + run2+1]>0):
-                                #         if SI[CCI.index(CCI[p20]) + 6 + run2] > DSI[CCI.index(CCI[p20]) + 4 + run2]:
-                                #             minValueNew = minaTwo[CCI.index(CCI[p20]) + 19 + run2]
-
-                                #             run3 = 1
-                                #             while run3 != 0:
-                                #                 if (100> CCI[p20 +run3]>0 and 0>CCI[p20 + run3+1]> -100):
-                                #                     minaValueNew = minaTwo[CCI.index(CCI[p20]) + 19 + run3]
-
-                                #                 if minValue > minaValueNew:
-                                #                     minValue = minaValueNew
-                                #                     run3 == 0
-
-                                #                 else:
-                                #                     run3 += 1
-
-                                #         if minValue > lc5[CCI.index(CCI[p20]) + 20 + run2]:
-                                #             dumbDataPattern[CCI.index(CCI[p20]) + 20 + run2] = "BC-"
-
-                                #         run2 == 0
-                                #         break
-                                #     else:
-                                #         run2 += 1
-
-                                # maxminPattern[CCI.index(CCI[p20]) + 20 + run] = minValue
 
                 except:
                     print("levae")
@@ -893,58 +653,6 @@ for p104, p204 in zip(range(0, ((len(CCI) - 1) + 1)), range(1, (len(CCI) + 1))):
 
 
 
-
-                                    # minValue = minaTwo[CCI.index(CCI[p204]) + 19]
-                    # if minValue > lc5[CCI.index(CCI[p204]) + 20]:
-                    #     dumbDataPattern[CCI.index(CCI[p204]) + 20] = "BD-"
-                    # else:
-                    #     dumbDataPattern[CCI.index(CCI[p204]) + 20] = dumbDataPattern[CCI.index(CCI[p204]) + 19]
-
-
-
-                        # run=1
-                        # while run!=0:
-                        #     if ( CCI[p204 + run]<-100):
-                        #         if SI[CCI.index(CCI[p204]) + 6 + run] < DSI[CCI.index(CCI[p204]) + 4 + run]:
-                        #             if minaTwo[CCI.index(CCI[p204]) + 19 + run] < minValue:
-                        #                 minValue = minaTwo[CCI.index(CCI[p204]) + 19 + run]
-
-                        #         if minValue>lc5[CCI.index(CCI[p204])+20+run]:
-                        #             dumbDataPattern[CCI.index(CCI[p204])+20+run]="BD-"
-
-                        #         run +=1
-                        #     else:
-                        #         run==0
-                        #         break
-
-                        # run2 = 1
-                        # while run2 != 0:
-                        #     if (CCI[p204 + run2] < -100 and 100> CCI[p204 + run2+1]>0):
-                        #         if SI[CCI.index(CCI[p204]) + 6 + run2] > DSI[CCI.index(CCI[p204]) + 4 + run2]:
-                        #             minValueNew = minaTwo[CCI.index(CCI[p204]) + 19 + run2]
-
-                        #             run3 = 1
-                        #             while run3 != 0:
-                        #                 if (100> CCI[p204 + run3]>0 and CCI[p204 + run3+1] < -100):
-                        #                     minaValueNew = minaTwo[CCI.index(CCI[p204]) + 19 + run3]
-
-                        #                 if minValue > minaValueNew:
-                        #                     minValue = minaValueNew
-                        #                     run3 == 0
-
-                        #                 else:
-                        #                     run3 += 1
-
-                        #         if minValue > lc5[CCI.index(CCI[p204]) + 20 + run2]:
-                        #             dumbDataPattern[CCI.index(CCI[p204]) + 20 + run2] = "BD-"
-
-                        #         run2 == 0
-                        #         break
-                        #     else:
-                        #         run2 += 1
-
-                        # maxminPattern[CCI.index(CCI[p204]) + 20 + run] = minValue
-
                 except:
                     print("levae")
     except:
@@ -1010,55 +718,6 @@ for p105, p205 in zip(range(0, ((len(CCI) - 1) + 1)), range(1, (len(CCI) + 1))):
                                                 CCI.index(CCI[p205]) + 19 + run41]
                                     run41 += 1
 
-                    # minValue = minaTwo[CCI.index(CCI[p205]) + 19]
-                    # if minValue > lc5[CCI.index(CCI[p205]) + 20]:
-                    #     dumbDataPattern[CCI.index(CCI[p205]) + 20] = "CD-"
-                    # else:
-                    #     dumbDataPattern[CCI.index(CCI[p205]) + 20] = dumbDataPattern[CCI.index(CCI[p205]) + 19]
-
-
-                        # run=1
-                        # while run!=0:
-                        #     if ( CCI[p205 + run]<-100):
-                        #         if SI[CCI.index(CCI[p205]) + 6 + run] < DSI[CCI.index(CCI[p205]) + 4 + run]:
-                        #             if minaTwo[CCI.index(CCI[p205]) + 19 + run] < minValue:
-                        #                 minValue = minaTwo[CCI.index(CCI[p205]) + 19 + run]
-
-                        #         if minValue>lc5[CCI.index(CCI[p205])+20+run]:
-                        #             dumbDataPattern[CCI.index(CCI[p205])+20+run]="CD-"
-
-                        #         run +=1
-                        #     else:
-                        #         run==0
-                        #         break
-
-                        # run2 = 1
-                        # while run2 != 0:
-                        #     if ( CCI[p205+run2] < -100 and 0>CCI[p205+run2+1]> -100):
-                        #         if SI[CCI.index(CCI[p205]) + 6 + run2] > DSI[CCI.index(CCI[p205]) + 4 + run2]:
-                        #             minValueNew = minaTwo[CCI.index(CCI[p205]) + 19 + run2]
-
-                        #             run3 = 1
-                        #             while run3 != 0:
-                        #                 if (100 > CCI[p205 + run3] and CCI[p205+run3+1] < -100):
-                        #                     minaValueNew = minaTwo[CCI.index(CCI[p205]) + 19 + run3]
-
-                        #                 if minValue > minaValueNew:
-                        #                     minValue = minaValueNew
-                        #                     run3 == 0
-
-                        #                 else:
-                        #                     run3 += 1
-
-                        #         if minValue > lc5[CCI.index(CCI[p205]) + 20 + run2]:
-                        #             dumbDataPattern[CCI.index(CCI[p205]) + 20 + run2] = "CD-"
-
-                        #         run2 == 0
-                        #         break
-                        #     else:
-                        #         run2 += 1
-
-                        # maxminPattern[CCI.index(CCI[p205]) + 20 + run] = minValue
 
                 except:
                     print("levae")
@@ -1125,55 +784,7 @@ for p106, p206 in zip(range(0, ((len(CCI) - 1) + 1)), range(1, (len(CCI) + 1))):
                                                 CCI.index(CCI[p206]) + 19 + run42]
                                     run42 += 1
 
-                    # maxValue = maxaTwo[CCI.index(CCI[p206]) + 19]
-                    # if maxValue < hp5[CCI.index(CCI[p206]) + 20]:
-                    #     dumbDataPattern[CCI.index(CCI[p206]) + 20] = "BA+"
-                    # else:
-                    #     dumbDataPattern[CCI.index(CCI[p206]) + 20] = dumbDataPattern[CCI.index(CCI[p206]) + 19]
-
-
-                        # run=1
-                        # while run!=0:
-                        #     if ( CCI[p206 + run]>100):
-                        #         if SI[CCI.index(CCI[p206]) + 6 + run] > DSI[CCI.index(CCI[p206]) + 4 + run]:
-                        #             if maxaTwo[CCI.index(CCI[p206]) + 19 + run] > maxValue:
-                        #                 maxValue = maxaTwo[CCI.index(CCI[p206]) + 19 + run]
-
-                        #         if maxValue<hp5[CCI.index(CCI[p206])+20+run]:
-                        #             dumbDataPattern[CCI.index(CCI[p206])+20+run]="BA+"
-
-                        #         run +=1
-                        #     else:
-                        #         run==0
-                        #         break
-
-                        # run2 = 1
-                        # while run2 != 0:
-                        #     if (CCI[p206 +run2]>100 and 100> CCI[p206 +run2+1]>0):
-                        #         if SI[CCI.index(CCI[p206]) + 6 + run2] < DSI[CCI.index(CCI[p206]) + 4 + run2]:
-                        #             minValueNew = minaTwo[CCI.index(CCI[p206]) + 19 + run2]
-
-                        #             run3 = 1
-                        #             while run3 != 0:
-                        #                 if (100> CCI[p206 +run3]>0 and CCI[p206 +run3+1]>100):
-                        #                     maxaValueNew = maxaTwo[CCI.index(CCI[p206]) + 19 + run3]
-
-                        #                 if maxValue < maxaValueNew:
-                        #                     maxValue = maxaValueNew
-                        #                     run3 == 0
-
-                        #                 else:
-                        #                     run3 += 1
-
-                        #         if maxValue < hp5[CCI.index(CCI[p206]) + 20 + run2]:
-                        #             dumbDataPattern[CCI.index(CCI[p206]) + 20 + run2] = "BA+"
-
-                        #         run2 == 0
-                        #         break
-                        #     else:
-                        #         run2 += 1
-
-                        # maxminPattern[CCI.index(CCI[p206]) + 20 + run] = maxValue
+      
                         print("BA")
                 except:
                     print("levae")
@@ -1241,54 +852,6 @@ for p107, p207 in zip(range(0, ((len(CCI) - 1) + 1)), range(1, (len(CCI) + 1))):
                                     run43 += 1
 
 
-                    # maxValue = maxaTwo[CCI.index(CCI[p207]) + 19]
-                    # if maxValue < hp5[CCI.index(CCI[p207]) + 20]:
-                    #     dumbDataPattern[CCI.index(CCI[p207]) + 20] = "CA+"
-                    # else:
-                    #     dumbDataPattern[CCI.index(CCI[p207]) + 20] = dumbDataPattern[CCI.index(CCI[p207]) + 19]
-
-
-                        # run=1
-                        # while run!=0:
-                        #     if ( CCI[p207 + run]>100):
-                        #         if SI[CCI.index(CCI[p207]) + 6 + run] > DSI[CCI.index(CCI[p207]) + 4 + run]:
-                        #             if maxaTwo[CCI.index(CCI[p207]) + 19 + run] > maxValue:
-                        #                 maxValue = maxaTwo[CCI.index(CCI[p207]) + 19 + run]
-
-                        #         if maxValue<hp5[CCI.index(CCI[p207])+20+run]:
-                        #             dumbDataPattern[CCI.index(CCI[p207])+20+run]="CA+"
-
-                        #         run +=1
-                        #     else:
-                        #         run==0
-                        #         break
-
-                        # run2 = 1
-                        # while run2 != 0:
-                        #     if (CCI[p207 + run2]>100  and 0>CCI[p207 +run2+1]> -100):
-                        #         if SI[CCI.index(CCI[p207]) + 6 + run2] < DSI[CCI.index(CCI[p207]) + 4 + run2]:
-                        #             minValueNew = minaTwo[CCI.index(CCI[p207]) + 19 + run2]
-
-                        #             run3 = 1
-                        #             while run3 != 0:
-                        #                 if (0>CCI[p207 +run3]> -100 and CCI[p207 +run3+1]>100):
-                        #                     maxaValueNew = maxaTwo[CCI.index(CCI[p207]) + 19 + run3]
-
-                        #                 if maxValue < maxaValueNew:
-                        #                     maxValue = maxaValueNew
-                        #                     run3 == 0
-
-                        #                 else:
-                        #                     run3 += 1
-
-                        #         if maxValue < hp5[CCI.index(CCI[p207]) + 20 + run2]:
-                        #             dumbDataPattern[CCI.index(CCI[p207]) + 20 + run2] = "CA+"
-
-                        #         run2 == 0
-                        #         break
-                        #     else:
-                        #         run2 += 1
-                        # maxminPattern[CCI.index(CCI[p207]) + 20 + run] = maxValue
                         print("CA")
                 except:
                     print("levae")
@@ -1354,59 +917,6 @@ for p108, p208 in zip(range(0, ((len(CCI) - 1) + 1)), range(1, (len(CCI) + 1))):
                                                 CCI.index(CCI[p208]) + 19 + run36]
                                     run36 += 1
 
-
-
-
-
-                    # maxValue = maxaTwo[CCI.index(CCI[p208]) + 19]
-                    # if maxValue < hp5[CCI.index(CCI[p208]) + 20]:
-                    #     dumbDataPattern[CCI.index(CCI[p208]) + 20] = "CB+"
-                    # else:
-                    #     dumbDataPattern[CCI.index(CCI[p208]) + 20] = dumbDataPattern[CCI.index(CCI[p208]) + 19]
-
-
-                        # run=1
-                        # while run!=0:
-                        #     if (100> CCI[p208 +run]>0):
-                        #         if SI[CCI.index(CCI[p208]) + 6+run] > DSI[CCI.index(CCI[p208]) + 4+run]:
-                        #             if maxaTwo[CCI.index(CCI[p208])+19+run] >maxValue:
-                        #                 maxValue=maxaTwo[CCI.index(CCI[p208])+19+run]
-
-                        #         if maxValue<hp5[CCI.index(CCI[p208])+20+run]:
-                        #             dumbDataPattern[CCI.index(CCI[p208])+20+run]="CB+"
-
-                        #         run +=1
-                        #     else:
-                        #         run==0
-                        #         break
-
-                        # run2 = 1
-                        # while run2 != 0:
-                        #     if (0 > CCI[p208 + run2] > -100 and CCI[p208 + run2+1] < -100):
-                        #         if SI[CCI.index(CCI[p208]) + 6 + run2] < DSI[CCI.index(CCI[p208]) + 4 + run2]:
-                        #             minValueNew = minaTwo[CCI.index(CCI[p208]) + 19 + run2]
-
-                        #             run3 = 1
-                        #             while run3 != 0:
-                        #                 if (CCI[p208 + run3] < -100 and 0 > CCI[p208 + run3+1] > -100):
-                        #                     maxaValueNew = maxaTwo[CCI.index(CCI[p208]) + 19 + run3]
-
-                        #                 if maxValue < maxaValueNew:
-                        #                     maxValue = maxaValueNew
-                        #                     run3 == 0
-
-                        #                 else:
-                        #                     run3 += 1
-
-                        #         if maxValue < hp5[CCI.index(CCI[p208]) + 20 + run2]:
-                        #             dumbDataPattern[CCI.index(CCI[p208]) + 20 + run2] = "CB+"
-
-                        #         run2 == 0
-                        #         break
-                        #     else:
-                        #         run2 += 1
-
-                        # maxminPattern[CCI.index(CCI[p208]) + 20 + run] = maxValue
                         print("CB")
                 except:
                     print("levae")
@@ -1473,55 +983,6 @@ for p109, p209 in zip(range(0, ((len(CCI) - 1) + 1)), range(1, (len(CCI) + 1))):
                                                 CCI.index(CCI[p209]) + 19 + run44]
                                     run44 += 1
 
-
-                    # maxValue = maxaTwo[CCI.index(CCI[p209]) + 19]
-                    # if maxValue < hp5[CCI.index(CCI[p209]) + 20]:
-                    #     dumbDataPattern[CCI.index(CCI[p209]) + 20] = "DA+"
-                    # else:
-                    #     dumbDataPattern[CCI.index(CCI[p209]) + 20] = dumbDataPattern[CCI.index(CCI[p209]) + 19]
-
-                        # run = 1
-                        # while run != 0:
-                        #     if (0 > CCI[p209 + run] > -100):
-                        #         if SI[CCI.index(CCI[p209]) + 6 + run] > DSI[CCI.index(CCI[p209]) + 4 + run]:
-                        #             if maxaTwo[CCI.index(CCI[p209]) + 19 + run] > maxValue:
-                        #                 maxValue = maxaTwo[CCI.index(CCI[p209]) + 19 + run]
-
-                        #         if maxValue < hp5[CCI.index(CCI[p209]) + 20 + run]:
-                        #             dumbDataPattern[CCI.index(CCI[p209]) + 20 + run] = "DA+"
-
-                        #         run += 1
-                        #     else:
-                        #         run == 0
-                        #         break
-
-                        # run2 = 1
-                        # while run2 != 0:
-                        #     if ( CCI[p209 +run2] < -100 and CCI[p209 + run2+1]>100):
-                        #         if SI[CCI.index(CCI[p209]) + 6 + run2] < DSI[CCI.index(CCI[p209]) + 4 + run2]:
-                        #             minValueNew = minaTwo[CCI.index(CCI[p209]) + 19 + run2]
-
-                        #             run3 = 1
-                        #             while run3 != 0:
-                        #                 if (CCI[p209 + run3]>100 and CCI[p209 +run2+1] < -100):
-                        #                     maxaValueNew = maxaTwo[CCI.index(CCI[p209]) + 19 + run3]
-
-                        #                 if maxValue < maxaValueNew:
-                        #                     maxValue = maxaValueNew
-                        #                     run3 == 0
-
-                        #                 else:
-                        #                     run3 += 1
-
-                        #         if maxValue < hp5[CCI.index(CCI[p209]) + 20 + run2]:
-                        #             dumbDataPattern[CCI.index(CCI[p209]) + 20 + run2] = "DA+"
-
-                        #         run2 == 0
-                        #         break
-                        #     else:
-                        #         run2 += 1
-
-                        # maxminPattern[CCI.index(CCI[p209]) + 20 + run] = maxValue
                         print("DA")
                 except:
                     print("levae")
@@ -1589,54 +1050,6 @@ for p110, p210 in zip(range(0, ((len(CCI) - 1) + 1)), range(1, (len(CCI) + 1))):
                                                 CCI.index(CCI[p210]) + 19 + run45]
                                     run45 += 1
 
-                    # maxValue = maxaTwo[CCI.index(CCI[p210]) + 19]
-                    # if maxValue < hp5[CCI.index(CCI[p210]) + 20]:
-                    #     dumbDataPattern[CCI.index(CCI[p210]) + 20] = "DB+"
-                    # else:
-                    #     dumbDataPattern[CCI.index(CCI[p210]) + 20] = dumbDataPattern[CCI.index(CCI[p210]) + 19]
-
-                        # run = 1
-                        # while run != 0:
-                        #     if (100 > CCI[p210 + run] > 0):
-                        #         if SI[CCI.index(CCI[p210]) + 6 + run] > DSI[CCI.index(CCI[p210]) + 4 + run]:
-                        #             if maxaTwo[CCI.index(CCI[p210]) + 19 + run] > maxValue:
-                        #                 maxValue = maxaTwo[CCI.index(CCI[p210]) + 19 + run]
-
-                        #         if maxValue < hp5[CCI.index(CCI[p210]) + 20 + run]:
-                        #             dumbDataPattern[CCI.index(CCI[p210]) + 20 + run] = "DB+"
-
-                        #         run += 1
-                        #     else:
-                        #         run == 0
-                        #         break
-
-                        # run2 = 1
-                        # while run2 != 0:
-                        #     if (100> CCI[p210 +run2]>0 and CCI[p210 + run2+1] < -100 ):
-                        #         if SI[CCI.index(CCI[p210]) + 6 + run2] < DSI[CCI.index(CCI[p210]) + 4 + run2]:
-                        #             minValueNew = minaTwo[CCI.index(CCI[p210]) + 19 + run2]
-
-                        #             run3 = 1
-                        #             while run3 != 0:
-                        #                 if (CCI[p110 +run3] < -100  and 100> CCI[p210 + run3+1]>0):
-                        #                     maxaValueNew = maxaTwo[CCI.index(CCI[p210]) + 19 + run3]
-
-                        #                 if maxValue < maxaValueNew:
-                        #                     maxValue = maxaValueNew
-                        #                     run3 == 0
-
-                        #                 else:
-                        #                     run3 += 1
-
-                        #         if maxValue < hp5[CCI.index(CCI[p210]) + 20 + run2]:
-                        #             dumbDataPattern[CCI.index(CCI[p210]) + 20 + run2] = "DB+"
-
-                        #         run2 == 0
-                        #         break
-                        #     else:
-                        #         run2 += 1
-
-                        # maxminPattern[CCI.index(CCI[p210]) + 20 + run] = maxValue
                         print("DB")
                 except:
                     print("levae")
@@ -1705,87 +1118,13 @@ for p111, p211 in zip(range(0, ((len(CCI) - 1) + 1)), range(1, (len(CCI) + 1))):
                                                 CCI.index(CCI[p211]) + 19 + run46]
                                     run46 += 1
 
-                    # maxValue = maxaTwo[CCI.index(CCI[p211]) + 19]
-                    # if maxValue < hp5[CCI.index(CCI[p211]) + 20]:
-                    #     dumbDataPattern[CCI.index(CCI[p211]) + 20] = "DC+"
-                    #     # print("the maxa value is: " + str(maxaTwo[CCI.index(CCI[p211])+20]))
-                    # else:
-                    #     dumbDataPattern[CCI.index(CCI[p211]) + 20] = dumbDataPattern[CCI.index(CCI[p211]) + 19]
-                        # print("the maxa value is: " + str(maxaTwo[CCI.index(CCI[p211])+20]))
-
-                        # run=1
-                        # while run!=0:
-                        #     if ( 0>CCI[p211 +run]> -100):
-                        #         if SI[CCI.index(CCI[p211]) + 6 + run] > DSI[CCI.index(CCI[p211]) + 4 + run]:
-                        #             if maxaTwo[CCI.index(CCI[p211]) + 19 + run] > maxValue:
-                        #                 maxValue = maxaTwo[CCI.index(CCI[p211]) + 19 + run]
-
-                        #         if maxValue<hp5[CCI.index(CCI[p211])+20+run]:
-                        #             dumbDataPattern[CCI.index(CCI[p211])+20+run]="DC+"
-
-                        #         run +=1
-                        #     else:
-                        #         run==0
-                        #         break
-
-
-                        # run2 = 1
-                        # while run2 != 0:
-                        #     if (0>CCI[p211+ run2]> -100 and CCI[p111+ run2+1] < -100 ):
-                        #         if SI[CCI.index(CCI[p211]) + 6 + run2] < DSI[CCI.index(CCI[p211]) + 4 + run2]:
-                        #                 minValueNew = minaTwo[CCI.index(CCI[p211]) + 19 + run2]
-
-                        #                 run3 = 1
-                        #                 while run3 != 0:
-                        #                     if (CCI[p211 + run3] < -100 and 0 > CCI[p211 + run3+1] > -100):
-                        #                         maxaValueNew = maxaTwo[CCI.index(CCI[p211]) + 19 + run3]
-
-                        #                     if maxValue<maxaValueNew:
-                        #                         maxValue=maxaValueNew
-                        #                         run3 == 0
-
-                        #                     else:
-                        #                         run3 +=1
-
-
-                        #         if maxValue < hp5[CCI.index(CCI[p211]) + 20 + run2]:
-                        #             dumbDataPattern[CCI.index(CCI[p211]) + 20 + run2] = "DC+"
-
-                        #         run2 == 0
-                        #         break
-                        #     else:
-                        #         run2 += 1
-
-                        # maxminPattern[CCI.index(CCI[p211]) + 20 + run] = maxValue
                         print("DC")
                 except:
                     print("levae")
     except:
         print()
 
-        # for lum in range(1,len(maxaTwo)):
-# print(maxaTwo[lum])
-
-
-
-
-# dumdum = list(np.float_(maxaTwo))
-# for ftt in dumdum:
-#
-#     frac, whole = math.modf(ftt)
-#     if frac>= maxaCellValue:
-#         maxaThree.append(whole+2+addCellValue)
-#     else:
-#         maxaThree.append(whole + 1 + addCellValue)
-
-
-
-# print(dumbDataPattern)
-
-# newDataPattern =dumbCCIGraph + dumbDataPattern
-
-# fill with past values of dumbdatapattern
-
+     
 for t56 in range(0, len(dumbDataPattern)):
     if dumbDataPattern[t56] == " ":
         dumbDataPattern[t56] = dumbDataPattern[t56 - 1]
@@ -1802,18 +1141,7 @@ for gfd in changeSlot:
     if gfd == 1:
         changeSlot[changeSlot.index(gfd)] = " "
 
-# for dsa in dumbDataPattern:
-#     catch22 = 1
-#     while catch22 !=0:
-#         if dumbDataPattern[dumbDataPattern.index(dsa)+catch22-1]==dumbDataPattern[dumbDataPattern.index(dsa) +catch22] and (dumbDataPattern.index(dsa)+1)==(dumbDataPattern.index(dsa) +catch22):
-#             print(str(dumbDataPattern.index(dsa)+catch22-1) +"till"+ str(dumbDataPattern.index(dsa)+catch22))
-#             # print(dumbDataPattern[dumbDataPattern.index(dsa)])
-#             catch22 +=1
-#             continue
-#
-#         else:
-#             catch22==0
-#             break
+
 lumsum=[]
 for dsa in range(0,len(dumbDataPattern)):
     try:
